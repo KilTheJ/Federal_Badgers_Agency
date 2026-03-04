@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon espace - Federal Badgers Agency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 32px;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        .panel {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .panel h2 {
+            color: #4CAF50;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .panel-content {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+
+        .btn-secondary {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0b7dda;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #000;
+        }
+
+        .modal h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .btn-cancel {
+            background-color: #999;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background-color: #777;
+        }
+
+        .btn-save {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-save:hover {
+            background-color: #45a049;
+        }
+
+        /* Tableau styles */
+        .table-container {
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        table thead {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .status-active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .status-inactive {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .status-pending {
+            background-color: #FF9800;
+            color: white;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-small:hover {
+            background-color: #da190b;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+
+        /* Confirmation modal styles */
+        .confirmation-content {
+            text-align: center;
+        }
+
+        .confirmation-content p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-confirm {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-confirm:hover {
+            background-color: #45a049;
+        }
+
+        .btn-decline {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-decline:hover {
+            background-color: #da190b;
+        }
+
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-content-large {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mon espace</h1>
+
+        <!-- Volet Mes informations -->
+        <div class="panel">
+            <h2>📋 Mes informations</h2>
+            <div class="panel-content">
+                <p>Bienvenue dans votre espace utilisateur. Vous pouvez consulter et gérer vos informations personnelles ici.</p>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="openEditModal()">Modifier mes informations</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Volet Gestion de mes blaireaux -->
+        <div class="panel">
+            <h2>🦡 Gestion de mes blaireaux</h2>
+            <div class="panel-content">
+                <p>Consultez et gérez vos blaireaux. Vous pouvez voir la liste de vos blaireaux engagés et suivre leurs missions.</p>
+                
+                <!-- Tableau des blaireaux -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Blaireau</th>
+                                <th>Date de début</th>
+                                <th>Coût accumulé</th>
+                                <th>Statut</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="badgerTable">
+                            <tr>
+                                <td>Infiltrateur Alpha</td>
+                                <td>15/02/2026</td>
+                                <td>2 500 €</td>
+                                <td><span class="status-badge status-active">Actif</span></td>
+                                <td><button class="btn-small" onclick="cancelMission(1)">Annuler</button></td>
+                            </tr>
+                            <tr>
+                                <td>Chasseur Beta</td>
+                                <td>01/03/2026</td>
+                                <td>1 200 €</td>
+                                <td><span class="status-badge status-active">Actif</span></td>
+                                <td><button class="btn-small" onclick="cancelMission(2)">Annuler</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="openConfirmationModal()">Engager un blaireau</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmation d'engagement -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeConfirmationModal()">&times;</span>
+            <h2>Engagement d'un blaireau</h2>
+            <div class="confirmation-content">
+                <p>Vous êtes sur le point d'engager un blaireau. Les blaireaux sont entrainés dans les conditions les plus exigeantes qui soient pour répondre à tout type de mission : suivi de cible, infiltration, assassinat. Engager un blaireau n'est pas un acte annodin et vous engage.</p>
+                <p><strong>Etes vous sûr de vouloir continuer ?</strong></p>
+                <div class="confirmation-buttons">
+                    <button class="btn-decline" onclick="closeConfirmationModal()">Non</button>
+                    <button class="btn-confirm" onclick="openEngagementForm()">Oui</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour engager un blaireau -->
+    <div id="engagementModal" class="modal">
+        <div class="modal-content modal-content-large">
+            <span class="close-btn" onclick="closeEngagementModal()">&times;</span>
+            <h2>Engager un blaireau</h2>
+            <form id="engagementForm">
+                <div class="form-group">
+                    <label for="badeauType">Type de blaireau:</label>
+                    <select id="badeauType" name="badeauType" required>
+                        <option value="">-- Sélectionner un type --</option>
+                        <option value="infiltrateur">Infiltrateur</option>
+                        <option value="chasseur">Chasseur</option>
+                        <option value="specialist">Spécialiste</option>
+                        <option value="commandant">Commandant</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="missionType">Type de mission:</label>
+                    <select id="missionType" name="missionType" required>
+                        <option value="">-- Sélectionner un type --</option>
+                        <option value="suivi">Suivi de cible</option>
+                        <option value="infiltration">Infiltration</option>
+                        <option value="elimination">Élimination</option>
+                        <option value="reconnaissance">Reconnaissance</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="missionDescription">Description de la mission:</label>
+                    <textarea id="missionDescription" name="missionDescription" placeholder="Décrivez les éléments de la mission..." required></textarea>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn-cancel" onclick="closeEngagementModal()">Annuler</button>
+                    <button type="submit" class="btn-save">Engager</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal pour modifier les informations -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            <h2>Modifier mes informations</h2>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="prenom">Prénom:</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div>
+                <div class="form-group">
+                    <label for="nom">Nom:</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="adresse">Adresse:</label>
+                    <input type="text" id="adresse" name="adresse" required>
+                </div>
+                <div class="form-group">
+                    <label for="numCB">Numéro de CB:</label>
+                    <input type="text" id="numCB" name="numCB" placeholder="XXXX XXXX XXXX XXXX" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">Annuler</button>
+                    <button type="submit" class="btn-save">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Fonctions pour gérer le modal de modification
+        function openEditModal() {
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        // Fermer les modales en cliquant en dehors du contenu
+        window.onclick = function(event) {
+            const confirmationModal = document.getElementById('confirmationModal');
+            const engagementModal = document.getElementById('engagementModal');
+            const editModal = document.getElementById('editModal');
+            
+            if (event.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
+            }
+            if (event.target === engagementModal) {
+                engagementModal.style.display = 'none';
+            }
+            if (event.target === editModal) {
+                editModal.style.display = 'none';
+            }
+        }
+
+        // Gérer la soumission du formulaire de modification
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const prenom = document.getElementById('prenom').value;
+            const nom = document.getElementById('nom').value;
+            const adresse = document.getElementById('adresse').value;
+            const numCB = document.getElementById('numCB').value;
+            
+            alert(`Informations mises à jour:\nPrénom: ${prenom}\nNom: ${nom}\nAdresse: ${adresse}\nCB: ${numCB}`);
+            
+            closeEditModal();
+        });
+
+        // Fonctions pour gérer les modales de confirmation et d'engagement
+        function openConfirmationModal() {
+            document.getElementById('confirmationModal').style.display = 'block';
+        }
+
+        function closeConfirmationModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        function openEngagementForm() {
+            closeConfirmationModal();
+            document.getElementById('engagementModal').style.display = 'block';
+        }
+
+        function closeEngagementModal() {
+            document.getElementById('engagementModal').style.display = 'none';
+        }
+
+        // Gérer la soumission du formulaire d'engagement
+        document.getElementById('engagementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const badeauType = document.getElementById('badeauType').value;
+            const missionType = document.getElementById('missionType').value;
+            const missionDescription = document.getElementById('missionDescription').value;
+            
+            alert(`Mission d'engagement enregistrée:\nType de blaireau: ${badeauType}\nType de mission: ${missionType}\nDescription: ${missionDescription}`);
+            
+            closeEngagementModal();
+            document.getElementById('engagementForm').reset();
+        });
+
+        // Fonction pour annuler une mission
+        function cancelMission(badgerId) {
+            if (confirm('Êtes-vous sûr de vouloir annuler cette mission ?')) {
+                alert(`Mission ${badgerId} annulée.`);
+            }
+        }
+    </script>
+</body>
+</html>
