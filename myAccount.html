@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon espace - Federal Badgers Agency</title>
+    <link rel="stylesheet" href="colors.css">
     <style>
         * {
             margin: 0;
@@ -13,43 +14,43 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
+            background-color: var(--color-background);
             padding: 20px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: white;
+            background-color: var(--color-white);
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-light);
             padding: 30px;
         }
 
         h1 {
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 30px;
             font-size: 32px;
-            border-bottom: 3px solid #4CAF50;
+            border-bottom: 3px solid var(--color-primary);
             padding-bottom: 10px;
         }
 
         .panel {
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
+            background-color: var(--color-panel-background);
+            border: 1px solid var(--color-border);
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 25px;
         }
 
         .panel h2 {
-            color: #4CAF50;
+            color: var(--color-primary);
             font-size: 20px;
             margin-bottom: 15px;
         }
 
         .panel-content {
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.6;
         }
 
@@ -71,21 +72,21 @@
         }
 
         .btn-primary {
-            background-color: #4CAF50;
-            color: white;
+            background-color: var(--color-primary);
+            color: var(--text-white);
         }
 
         .btn-primary:hover {
-            background-color: #45a049;
+            background-color: var(--color-primary-hover);
         }
 
         .btn-secondary {
-            background-color: #2196F3;
-            color: white;
+            background-color: var(--color-secondary);
+            color: var(--text-white);
         }
 
         .btn-secondary:hover {
-            background-color: #0b7dda;
+            background-color: var(--color-secondary-hover);
         }
 
         /* Modal styles */
@@ -97,18 +98,18 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: var(--overlay-dark);
         }
 
         .modal-content {
-            background-color: white;
+            background-color: var(--color-white);
             margin: 5% auto;
             padding: 30px;
             border: 1px solid #888;
             border-radius: 8px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-modal);
             animation: slideIn 0.3s ease-out;
         }
 
@@ -138,7 +139,7 @@
         }
 
         .modal h2 {
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 20px;
         }
 
@@ -149,14 +150,14 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
+            color: var(--text-primary);
             font-weight: 500;
         }
 
         .form-group input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--color-border);
             border-radius: 5px;
             font-size: 14px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -164,7 +165,7 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: #4CAF50;
+            border-color: var(--color-primary);
             box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
         }
 
@@ -177,7 +178,7 @@
 
         .btn-cancel {
             background-color: #999;
-            color: white;
+            color: var(--text-white);
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -191,8 +192,8 @@
         }
 
         .btn-save {
-            background-color: #4CAF50;
-            color: white;
+            background-color: var(--color-primary);
+            color: var(--text-white);
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -202,7 +203,7 @@
         }
 
         .btn-save:hover {
-            background-color: #45a049;
+            background-color: var(--color-primary-hover);
         }
 
         /* Tableau styles */
@@ -214,23 +215,23 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: white;
+            background-color: var(--color-white);
         }
 
         table thead {
-            background-color: #4CAF50;
-            color: white;
+            background-color: var(--color-primary);
+            color: var(--text-white);
         }
 
         table th,
         table td {
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--color-border);
         }
 
         table tbody tr:hover {
-            background-color: #f5f5f5;
+            background-color: var(--color-background);
         }
 
         .status-badge {
@@ -243,25 +244,25 @@
         }
 
         .status-active {
-            background-color: #4CAF50;
-            color: white;
+            background-color: var(--status-active);
+            color: var(--text-white);
         }
 
         .status-inactive {
-            background-color: #f44336;
-            color: white;
+            background-color: var(--status-inactive);
+            color: var(--text-white);
         }
 
         .status-pending {
-            background-color: #FF9800;
-            color: white;
+            background-color: var(--status-pending);
+            color: var(--text-white);
         }
 
         .btn-small {
             padding: 6px 12px;
             font-size: 12px;
-            background-color: #f44336;
-            color: white;
+            background-color: var(--color-danger);
+            color: var(--text-white);
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -269,13 +270,13 @@
         }
 
         .btn-small:hover {
-            background-color: #da190b;
+            background-color: var(--color-danger-hover);
         }
 
         .empty-state {
             text-align: center;
             padding: 20px;
-            color: #999;
+            color: var(--text-light);
         }
 
         /* Confirmation modal styles */
@@ -286,7 +287,7 @@
         .confirmation-content p {
             margin-bottom: 20px;
             line-height: 1.6;
-            color: #666;
+            color: var(--text-secondary);
         }
 
         .confirmation-buttons {
@@ -297,8 +298,8 @@
         }
 
         .btn-confirm {
-            background-color: #4CAF50;
-            color: white;
+            background-color: var(--color-primary);
+            color: var(--text-white);
             padding: 10px 30px;
             border: none;
             border-radius: 5px;
@@ -308,12 +309,12 @@
         }
 
         .btn-confirm:hover {
-            background-color: #45a049;
+            background-color: var(--color-primary-hover);
         }
 
         .btn-decline {
-            background-color: #f44336;
-            color: white;
+            background-color: var(--color-danger);
+            color: var(--text-white);
             padding: 10px 30px;
             border: none;
             border-radius: 5px;
@@ -323,14 +324,14 @@
         }
 
         .btn-decline:hover {
-            background-color: #da190b;
+            background-color: var(--color-danger-hover);
         }
 
         .form-group select,
         .form-group textarea {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--color-border);
             border-radius: 5px;
             font-size: 14px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -339,7 +340,7 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #4CAF50;
+            border-color: var(--color-primary);
             box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
         }
 
@@ -350,6 +351,16 @@
 
         .modal-content-large {
             max-width: 600px;
+        }
+
+        .status-completed {
+            background-color: var(--status-completed);
+            color: var(--text-white);
+        }
+
+        .status-cancelled {
+            background-color: var(--status-cancelled);
+            color: var(--text-white);
         }
     </style>
 </head>
@@ -387,26 +398,39 @@
                             </tr>
                         </thead>
                         <tbody id="badgerTable">
-                            <tr>
-                                <td>Infiltrateur Alpha</td>
-                                <td>15/02/2026</td>
-                                <td>2 500 €</td>
-                                <td><span class="status-badge status-active">Actif</span></td>
-                                <td><button class="btn-small" onclick="cancelMission(1)">Annuler</button></td>
-                            </tr>
-                            <tr>
-                                <td>Chasseur Beta</td>
-                                <td>01/03/2026</td>
-                                <td>1 200 €</td>
-                                <td><span class="status-badge status-active">Actif</span></td>
-                                <td><button class="btn-small" onclick="cancelMission(2)">Annuler</button></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <div class="button-group">
                     <button class="btn btn-primary" onclick="openConfirmationModal()">Engager un blaireau</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Volet Missions passées -->
+        <div class="panel">
+            <h2>📜 Missions passées</h2>
+            <div class="panel-content">
+                <p>Historique de vos missions annulées ou accomplies.</p>
+                
+                <!-- Tableau des missions passées -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Blaireau</th>
+                                <th>Date de début</th>
+                                <th>Coût accumulé</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pastMissionsTable">
+                            <tr>
+                                <td colspan="4" class="empty-state">Aucune mission passée pour le moment</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -497,6 +521,13 @@
     </div>
 
     <script>
+        // Gestion des missions avec stockage en mémoire
+        let missionIdCounter = 3; // Commencer après les 2 missions d'exemple
+        const missions = {
+            1: { badgerId: 1, badgerName: 'Infiltrateur Alpha', startDate: '15/02/2026', cost: '2 500 €', status: 'Actif', type: 'infiltrateur', missionType: 'infiltration' },
+            2: { badgerId: 2, badgerName: 'Chasseur Beta', startDate: '01/03/2026', cost: '1 200 €', status: 'Actif', type: 'chasseur', missionType: 'suivi' }
+        };
+
         // Fonctions pour gérer le modal de modification
         function openEditModal() {
             document.getElementById('editModal').style.display = 'block';
@@ -554,6 +585,32 @@
             document.getElementById('engagementModal').style.display = 'none';
         }
 
+        // Fonction pour obtenir le nom du blaireau en français
+        function getBadgerNameInFrench(value) {
+            const names = {
+                'infiltrateur': 'Infiltrateur',
+                'chasseur': 'Chasseur',
+                'specialist': 'Spécialiste',
+                'commandant': 'Commandant'
+            };
+            return names[value] || value;
+        }
+
+        // Fonction pour obtenir une couleur aléatoire pour les blaireaux
+        function getRandomBadgerGreek() {
+            const greeks = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta'];
+            return greeks[Math.floor(Math.random() * greeks.length)];
+        }
+
+        // Fonction pour obtenir la date actuelle au format JJ/MM/YYYY
+        function getCurrentDate() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
         // Gérer la soumission du formulaire d'engagement
         document.getElementById('engagementForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -561,17 +618,96 @@
             const missionType = document.getElementById('missionType').value;
             const missionDescription = document.getElementById('missionDescription').value;
             
-            alert(`Mission d'engagement enregistrée:\nType de blaireau: ${badeauType}\nType de mission: ${missionType}\nDescription: ${missionDescription}`);
+            // Créer un nouvel ID de mission
+            const newMissionId = missionIdCounter++;
+            const badgerName = getBadgerNameInFrench(badeauType) + ' ' + getRandomBadgerGreek();
+            const currentDate = getCurrentDate();
+            
+            // Stocker la mission
+            missions[newMissionId] = {
+                badgerId: newMissionId,
+                badgerName: badgerName,
+                startDate: currentDate,
+                cost: '0 €',
+                status: 'Actif',
+                type: badeauType,
+                missionType: missionType
+            };
+            
+            // Ajouter une nouvelle ligne au tableau des blaireaux actifs
+            addMissionRow(newMissionId);
             
             closeEngagementModal();
             document.getElementById('engagementForm').reset();
         });
 
+        // Fonction pour ajouter une ligne de mission au tableau
+        function addMissionRow(missionId) {
+            const mission = missions[missionId];
+            const tableBody = document.getElementById('badgerTable');
+            
+            // Créer une nouvelle ligne
+            const newRow = document.createElement('tr');
+            newRow.id = `mission-${missionId}`;
+            newRow.innerHTML = `
+                <td>${mission.badgerName}</td>
+                <td>${mission.startDate}</td>
+                <td>${mission.cost}</td>
+                <td><span class="status-badge status-active">${mission.status}</span></td>
+                <td><button class="btn-small" onclick="cancelMission(${missionId})">Annuler</button></td>
+            `;
+            
+            tableBody.appendChild(newRow);
+        }
+
         // Fonction pour annuler une mission
         function cancelMission(badgerId) {
             if (confirm('Êtes-vous sûr de vouloir annuler cette mission ?')) {
-                alert(`Mission ${badgerId} annulée.`);
+                const mission = missions[badgerId];
+                
+                // Obtenir la ligne du tableau
+                const row = document.getElementById(`mission-${badgerId}`);
+                if (!row) return;
+                
+                // Récupérer les données de la ligne
+                const cells = row.cells;
+                const badgerName = cells[0].textContent;
+                const startDate = cells[1].textContent;
+                const cost = cells[2].textContent;
+                
+                // Supprimer de la ligne du tableau actif
+                row.remove();
+                
+                // Ajouter à la table des missions passées
+                addPastMissionRow(badgerId, badgerName, startDate, cost, 'Annulée');
+                
+                // Marquer comme annulée
+                mission.status = 'Annulée';
             }
+        }
+
+        // Fonction pour ajouter une ligne au tableau des missions passées
+        function addPastMissionRow(missionId, badgerName, startDate, cost, status) {
+            const pastTableBody = document.getElementById('pastMissionsTable');
+            
+            // Supprimer le message "Aucune mission passée" s'il existe
+            const emptyRow = pastTableBody.querySelector('tr td[colspan="4"]');
+            if (emptyRow) {
+                emptyRow.parentElement.remove();
+            }
+            
+            // Créer une nouvelle ligne
+            const newRow = document.createElement('tr');
+            newRow.id = `past-mission-${missionId}`;
+            const statusBadgeClass = status === 'Annulée' ? 'status-cancelled' : 'status-completed';
+            newRow.innerHTML = `
+                <td>${badgerName}</td>
+                <td>${startDate}</td>
+                <td>${cost}</td>
+                <td><span class="status-badge ${statusBadgeClass}">${status}</span></td>
+            `;
+            
+            pastTableBody.appendChild(newRow);
         }
     </script>
 </body>

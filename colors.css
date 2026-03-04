@@ -1,0 +1,87 @@
+/* ========================================
+   PALETTE DE COULEURS - Federal Badgers Agency
+   ======================================== */
+
+:root {
+    /* COULEURS PRIMAIRES */
+    --color-primary: #4CAF50;
+    --color-primary-hover: #45a049;
+    --color-primary-dark: #388E3C;
+    --color-primary-light: #81C784;
+
+    /* COULEURS SECONDAIRES */
+    --color-secondary: #2196F3;
+    --color-secondary-hover: #0b7dda;
+    --color-secondary-dark: #1565C0;
+    --color-secondary-light: #64B5F6;
+
+    /* COULEURS D'ALERTE ET STATUT */
+    --color-danger: #f44336;
+    --color-danger-hover: #da190b;
+    --color-danger-light: #EF5350;
+
+    --color-warning: #FF9800;
+    --color-warning-hover: #F57C00;
+    --color-warning-light: #FFB74D;
+
+    --color-success: #4CAF50;
+    --color-success-hover: #45a049;
+
+    --color-info: #2196F3;
+    --color-info-hover: #0b7dda;
+
+    /* COULEURS DE STATUT */
+    --status-active: #4CAF50;
+    --status-pending: #FF9800;
+    --status-completed: #9C27B0;
+    --status-cancelled: #FF5722;
+    --status-inactive: #f44336;
+
+    /* COULEURS NEUTRES */
+    --color-white: #FFFFFF;
+    --color-background: #f5f5f5;
+    --color-background-dark: #e0e0e0;
+    --color-panel-background: #f9f9f9;
+    --color-border: #ddd;
+    --color-border-light: #e0e0e0;
+    --color-border-dark: #bbb;
+
+    /* COULEURS DE TEXTE */
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-light: #999999;
+    --text-lighter: #CCCCCC;
+    --text-white: #FFFFFF;
+
+    /* COULEURS SEMI-TRANSPARENTES */
+    --overlay-dark: rgba(0, 0, 0, 0.4);
+    --overlay-light: rgba(255, 255, 255, 0.9);
+
+    /* OMBRES */
+    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-modal: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   CLASSES D'UTILITÉ POUR LES COULEURS
+   ======================================== */
+
+/* Texte */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-light { color: var(--text-light); }
+.text-white { color: var(--text-white); }
+
+/* Couleurs de boutons */
+.bg-primary { background-color: var(--color-primary); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-danger { background-color: var(--color-danger); }
+.bg-warning { background-color: var(--color-warning); }
+.bg-success { background-color: var(--color-success); }
+
+/* Couleurs de bordures */
+.border-primary { border-color: var(--color-primary); }
+.border-secondary { border-color: var(--color-secondary); }
+.border-danger { border-color: var(--color-danger); }
+.border-light { border-color: var(--color-border); }
