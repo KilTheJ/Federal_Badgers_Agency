@@ -32,7 +32,7 @@
         <br>
 
         <div>
-            <label for="client_interet">Par quelle type de mission êtes vous intéressé ? :</label><br>
+            <label for="client_interet">Par quel type de mission êtes vous intéressé ? :</label><br>
             <input type="text" id="client_interet" name="client_interet">
         </div>
 
