@@ -1,0 +1,17 @@
+:root {
+    /* =========================
+       COULEURS PRINCIPALES
+       Change juste ces valeurs
+       ========================= */
+    --color-background: #08172f;
+    --color-panel: #0d1d39;
+    --color-main: #102344;
+    --color-nav: #012663;
+    --color-footer: #0b1f44;
+    --color-border: #2b4472;
+
+    --text-main: #e8edf7;
+    --color-accent: #d4af37;
+
+    --shadow-light: 0 6px 18px rgba(0,0,0,0.35);
+}

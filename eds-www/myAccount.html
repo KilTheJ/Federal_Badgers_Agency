@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon espace</title>
+    <link rel="stylesheet" href="colors.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--color-background);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--color-white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-light);
+            padding: 30px;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            font-size: 32px;
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 10px;
+        }
+
+        .panel {
+            background-color: var(--color-panel-background);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .panel h2 {
+            color: var(--color-primary);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .panel-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--text-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--color-secondary);
+            color: var(--text-white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-secondary-hover);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--overlay-dark);
+        }
+
+        .modal-content {
+            background-color: var(--color-white);
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-modal);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #000;
+        }
+
+        .modal h2 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .btn-cancel {
+            background-color: #999;
+            color: var(--text-white);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background-color: #777;
+        }
+
+        .btn-save {
+            background-color: var(--color-primary);
+            color: var(--text-white);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-save:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        /* Tableau styles */
+        .table-container {
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--color-white);
+        }
+
+        table thead {
+            background-color: var(--color-primary);
+            color: var(--text-white);
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        table tbody tr:hover {
+            background-color: var(--color-background);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .status-active {
+            background-color: var(--status-active);
+            color: var(--text-white);
+        }
+
+        .status-inactive {
+            background-color: var(--status-inactive);
+            color: var(--text-white);
+        }
+
+        .status-pending {
+            background-color: var(--status-pending);
+            color: var(--text-white);
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+            background-color: var(--color-danger);
+            color: var(--text-white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-small:hover {
+            background-color: var(--color-danger-hover);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-light);
+        }
+
+        /* Confirmation modal styles */
+        .confirmation-content {
+            text-align: center;
+        }
+
+        .confirmation-content p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-confirm {
+            background-color: var(--color-primary);
+            color: var(--text-white);
+            padding: 10px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-confirm:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        .btn-decline {
+            background-color: var(--color-danger);
+            color: var(--text-white);
+            padding: 10px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-decline:hover {
+            background-color: var(--color-danger-hover);
+        }
+
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-content-large {
+            max-width: 600px;
+        }
+
+        .status-completed {
+            background-color: var(--status-completed);
+            color: var(--text-white);
+        }
+
+        .status-cancelled {
+            background-color: var(--status-cancelled);
+            color: var(--text-white);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mon espace</h1>
+
+        <!-- Volet Mes informations -->
+        <div class="panel">
+            <h2>📋 Mes informations</h2>
+            <div class="panel-content">
+                <p>Bienvenue dans votre espace utilisateur. Vous pouvez consulter et gérer vos informations personnelles ici.</p>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="openEditModal()">Modifier mes informations</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Volet Gestion de mes blaireaux -->
+        <div class="panel">
+            <h2>🦡 Gestion de mes blaireaux</h2>
+            <div class="panel-content">
+                <p>Consultez et gérez vos blaireaux. Vous pouvez voir la liste de vos blaireaux engagés et suivre leurs missions.</p>
+                
+                <!-- Tableau des blaireaux -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Blaireau</th>
+                                <th>Date de début</th>
+                                <th>Coût accumulé</th>
+                                <th>Statut</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="badgerTable">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="openConfirmationModal()">Engager un blaireau</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Volet Missions passées -->
+        <div class="panel">
+            <h2>📜 Missions passées</h2>
+            <div class="panel-content">
+                <p>Historique de vos missions annulées ou accomplies.</p>
+                
+                <!-- Tableau des missions passées -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Blaireau</th>
+                                <th>Date de début</th>
+                                <th>Coût accumulé</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pastMissionsTable">
+                            <tr>
+                                <td colspan="4" class="empty-state">Aucune mission passée pour le moment</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmation d'engagement -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeConfirmationModal()">&times;</span>
+            <h2>Engagement d'un blaireau</h2>
+            <div class="confirmation-content">
+                <p>Vous êtes sur le point d'engager un blaireau. Les blaireaux sont entrainés dans les conditions les plus exigeantes qui soient pour répondre à tout type de mission : suivi de cible, infiltration, assassinat. Engager un blaireau n'est pas un acte annodin et vous engage.</p>
+                <p><strong>Etes vous sûr de vouloir continuer ?</strong></p>
+                <div class="confirmation-buttons">
+                    <button class="btn-decline" onclick="closeConfirmationModal()">Non</button>
+                    <button class="btn-confirm" onclick="openEngagementForm()">Oui</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour engager un blaireau -->
+    <div id="engagementModal" class="modal">
+        <div class="modal-content modal-content-large">
+            <span class="close-btn" onclick="closeEngagementModal()">&times;</span>
+            <h2>Engager un blaireau</h2>
+            <form id="engagementForm">
+                <div class="form-group">
+                    <label for="badeauType">Type de blaireau:</label>
+                    <select id="badeauType" name="badeauType" required>
+                        <option value="">-- Sélectionner un type --</option>
+                        <option value="infiltrateur">Infiltrateur</option>
+                        <option value="chasseur">Chasseur</option>
+                        <option value="specialist">Spécialiste</option>
+                        <option value="commandant">Commandant</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="missionType">Type de mission:</label>
+                    <select id="missionType" name="missionType" required>
+                        <option value="">-- Sélectionner un type --</option>
+                        <option value="suivi">Suivi de cible</option>
+                        <option value="infiltration">Infiltration</option>
+                        <option value="elimination">Élimination</option>
+                        <option value="reconnaissance">Reconnaissance</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="missionDescription">Description de la mission:</label>
+                    <textarea id="missionDescription" name="missionDescription" placeholder="Décrivez les éléments de la mission..." required></textarea>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn-cancel" onclick="closeEngagementModal()">Annuler</button>
+                    <button type="submit" class="btn-save">Engager</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal pour modifier les informations -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            <h2>Modifier mes informations</h2>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="prenom">Prénom:</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div>
+                <div class="form-group">
+                    <label for="nom">Nom:</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="adresse">Adresse:</label>
+                    <input type="text" id="adresse" name="adresse" required>
+                </div>
+                <div class="form-group">
+                    <label for="numCB">Numéro de CB:</label>
+                    <input type="text" id="numCB" name="numCB" placeholder="XXXX XXXX XXXX XXXX" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">Annuler</button>
+                    <button type="submit" class="btn-save">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Gestion des missions avec stockage en mémoire
+        let missionIdCounter = 3; // Commencer après les 2 missions d'exemple
+        const missions = {
+            1: { badgerId: 1, badgerName: 'Infiltrateur Alpha', startDate: '15/02/2026', cost: '2 500 €', status: 'Actif', type: 'infiltrateur', missionType: 'infiltration' },
+            2: { badgerId: 2, badgerName: 'Chasseur Beta', startDate: '01/03/2026', cost: '1 200 €', status: 'Actif', type: 'chasseur', missionType: 'suivi' }
+        };
+
+        // Fonctions pour gérer le modal de modification
+        function openEditModal() {
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        // Fermer les modales en cliquant en dehors du contenu
+        window.onclick = function(event) {
+            const confirmationModal = document.getElementById('confirmationModal');
+            const engagementModal = document.getElementById('engagementModal');
+            const editModal = document.getElementById('editModal');
+            
+            if (event.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
+            }
+            if (event.target === engagementModal) {
+                engagementModal.style.display = 'none';
+            }
+            if (event.target === editModal) {
+                editModal.style.display = 'none';
+            }
+        }
+
+        // Gérer la soumission du formulaire de modification
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const prenom = document.getElementById('prenom').value;
+            const nom = document.getElementById('nom').value;
+            const adresse = document.getElementById('adresse').value;
+            const numCB = document.getElementById('numCB').value;
+            
+            alert(`Informations mises à jour:\nPrénom: ${prenom}\nNom: ${nom}\nAdresse: ${adresse}\nCB: ${numCB}`);
+            
+            closeEditModal();
+        });
+
+        // Fonctions pour gérer les modales de confirmation et d'engagement
+        function openConfirmationModal() {
+            document.getElementById('confirmationModal').style.display = 'block';
+        }
+
+        function closeConfirmationModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        function openEngagementForm() {
+            closeConfirmationModal();
+            document.getElementById('engagementModal').style.display = 'block';
+        }
+
+        function closeEngagementModal() {
+            document.getElementById('engagementModal').style.display = 'none';
+        }
+
+        // Fonction pour obtenir le nom du blaireau en français
+        function getBadgerNameInFrench(value) {
+            const names = {
+                'infiltrateur': 'Infiltrateur',
+                'chasseur': 'Chasseur',
+                'specialist': 'Spécialiste',
+                'commandant': 'Commandant'
+            };
+            return names[value] || value;
+        }
+
+        // Fonction pour obtenir une couleur aléatoire pour les blaireaux
+        function getRandomBadgerGreek() {
+            const greeks = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta'];
+            return greeks[Math.floor(Math.random() * greeks.length)];
+        }
+
+        // Fonction pour obtenir la date actuelle au format JJ/MM/YYYY
+        function getCurrentDate() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // Gérer la soumission du formulaire d'engagement
+        document.getElementById('engagementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const badeauType = document.getElementById('badeauType').value;
+            const missionType = document.getElementById('missionType').value;
+            const missionDescription = document.getElementById('missionDescription').value;
+            
+            // Créer un nouvel ID de mission
+            const newMissionId = missionIdCounter++;
+            const badgerName = getBadgerNameInFrench(badeauType) + ' ' + getRandomBadgerGreek();
+            const currentDate = getCurrentDate();
+            
+            // Stocker la mission
+            missions[newMissionId] = {
+                badgerId: newMissionId,
+                badgerName: badgerName,
+                startDate: currentDate,
+                cost: '0 €',
+                status: 'Actif',
+                type: badeauType,
+                missionType: missionType
+            };
+            
+            // Ajouter une nouvelle ligne au tableau des blaireaux actifs
+            addMissionRow(newMissionId);
+            
+            closeEngagementModal();
+            document.getElementById('engagementForm').reset();
+        });
+
+        // Fonction pour ajouter une ligne de mission au tableau
+        function addMissionRow(missionId) {
+            const mission = missions[missionId];
+            const tableBody = document.getElementById('badgerTable');
+            
+            // Créer une nouvelle ligne
+            const newRow = document.createElement('tr');
+            newRow.id = `mission-${missionId}`;
+            newRow.innerHTML = `
+                <td>${mission.badgerName}</td>
+                <td>${mission.startDate}</td>
+                <td>${mission.cost}</td>
+                <td><span class="status-badge status-active">${mission.status}</span></td>
+                <td><button class="btn-small" onclick="cancelMission(${missionId})">Annuler</button></td>
+            `;
+            
+            tableBody.appendChild(newRow);
+        }
+
+        // Fonction pour annuler une mission
+        function cancelMission(badgerId) {
+            if (confirm('Êtes-vous sûr de vouloir annuler cette mission ?')) {
+                const mission = missions[badgerId];
+                
+                // Obtenir la ligne du tableau
+                const row = document.getElementById(`mission-${badgerId}`);
+                if (!row) return;
+                
+                // Récupérer les données de la ligne
+                const cells = row.cells;
+                const badgerName = cells[0].textContent;
+                const startDate = cells[1].textContent;
+                const cost = cells[2].textContent;
+                
+                // Supprimer de la ligne du tableau actif
+                row.remove();
+                
+                // Ajouter à la table des missions passées
+                addPastMissionRow(badgerId, badgerName, startDate, cost, 'Annulée');
+                
+                // Marquer comme annulée
+                mission.status = 'Annulée';
+            }
+        }
+
+        // Fonction pour ajouter une ligne au tableau des missions passées
+        function addPastMissionRow(missionId, badgerName, startDate, cost, status) {
+            const pastTableBody = document.getElementById('pastMissionsTable');
+            
+            // Supprimer le message "Aucune mission passée" s'il existe
+            const emptyRow = pastTableBody.querySelector('tr td[colspan="4"]');
+            if (emptyRow) {
+                emptyRow.parentElement.remove();
+            }
+            
+            // Créer une nouvelle ligne
+            const newRow = document.createElement('tr');
+            newRow.id = `past-mission-${missionId}`;
+            const statusBadgeClass = status === 'Annulée' ? 'status-cancelled' : 'status-completed';
+            newRow.innerHTML = `
+                <td>${badgerName}</td>
+                <td>${startDate}</td>
+                <td>${cost}</td>
+                <td><span class="status-badge ${statusBadgeClass}">${status}</span></td>
+            `;
+            
+            pastTableBody.appendChild(newRow);
+        }
+    </script>
+</body>
+</html>
